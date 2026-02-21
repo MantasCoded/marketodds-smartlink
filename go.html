@@ -17,6 +17,8 @@ p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}
 .hint{display:none;font-size:.8rem;color:#888;line-height:1.5}
 .show{display:block}
 .powered{font-size:.75rem;color:#aaa;margin-top:1.25rem}
+.debug{display:none;font-size:.65rem;color:#bbb;margin-top:.75rem;font-family:monospace;word-break:break-all}
+.show-debug .debug{display:block}
 </style>
 <script>
 (function(){
@@ -31,30 +33,35 @@ p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}
 
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
   var isAndroid = /Android/i.test(ua);
-
   var stripped = DEST.replace(/^https?:\/\//, '');
-  var schemeUrl;
+  var redirected = false;
 
-  if (isIOS) {
-    schemeUrl = 'x-safari-https://' + stripped;
-  } else if (isAndroid) {
-    schemeUrl = 'intent://' + stripped + '#Intent;scheme=https;end';
+  function tryRedirect() {
+    if (redirected) return;
+
+    if (isIOS) {
+      // Method 1: x-safari-https scheme
+      var safariUrl = 'x-safari-https://' + stripped;
+      window.location.href = safariUrl;
+
+      // Method 2: after 800ms, try Shortcuts fallback if still here
+      setTimeout(function(){
+        if (document.hidden) return;
+        var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0;
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        window.location.href = 'shortcuts://x-callback-url/run-shortcut?name=' + id + '&x-error=' + encodeURIComponent(DEST);
+      }, 800);
+    } else if (isAndroid) {
+      window.location.href = 'intent://' + stripped + '#Intent;scheme=https;end';
+    }
   }
 
-  if (schemeUrl) {
-    var fallback = setTimeout(function(){ showFallback(); }, 1500);
+  // Always show fallback after 2.5s no matter what
+  setTimeout(function(){ showFallback(); }, 2500);
 
-    document.addEventListener('visibilitychange', function(){
-      if (document.hidden) clearTimeout(fallback);
-    });
-    window.addEventListener('blur', function(){
-      clearTimeout(fallback);
-    });
-
-    window.location.href = schemeUrl;
-  } else {
-    showFallback();
-  }
+  tryRedirect();
 
   function showFallback() {
     document.addEventListener('DOMContentLoaded', reveal);
@@ -71,7 +78,7 @@ p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}
     var t = document.getElementById('title');
     if (t) t.textContent = 'Open in your browser';
     var d = document.getElementById('desc');
-    if (d) d.textContent = 'For the best experience, tap the button below to open in Safari or Chrome.';
+    if (d) d.textContent = 'For the best experience, tap the button below or tap ⋯ → Open in Safari.';
   }
 })();
 </script>
@@ -82,7 +89,7 @@ p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}
   <h1 id="title">Redirecting…</h1>
   <p id="desc">Opening MarketOdds in your browser for the best experience.</p>
   <a class="btn" id="btn" href="#">Open in Browser</a>
-  <p class="hint" id="hint">Or tap <strong>⋯</strong> in the top-right corner → <strong>Open in Safari</strong></p>
+  <p class="hint" id="hint">Tap <strong>⋯</strong> in the top-right corner → <strong>Open in Safari</strong></p>
   <p class="powered">MarketOdds [.ai]</p>
 </div>
 </body>
