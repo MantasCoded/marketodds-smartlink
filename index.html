@@ -163,7 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Ar
     </div>
 
     <div class="live-opportunities-cta">
-      <a id="cta-btn" href="https://marketodds.ai/opportunities" class="cta-button">
+      <a href="open.html" class="cta-button">
         View All Opportunities
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
@@ -172,33 +172,5 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Ar
   </div>
 </section>
 
-<script>
-(function(){
-  var ua = navigator.userAgent || '';
-  var isInApp = /Instagram|FBAN|FBAV|Messenger|Line\/|Snapchat|TikTok|Pinterest|WeChat|LinkedInApp|WebView| wv\)/i.test(ua);
-  if (!isInApp) return;
-
-  var isIOS = /iPhone|iPad|iPod/i.test(ua);
-  var isAndroid = /Android/i.test(ua);
-  var target = 'https://marketodds.ai/opportunities';
-  var stripped = target.replace(/^https?:\/\//, '');
-
-  var btn = document.getElementById('cta-btn');
-  if (!btn) return;
-
-  btn.addEventListener('click', function(e) {
-    var schemeUrl;
-    if (isIOS) {
-      schemeUrl = 'x-safari-https://' + stripped;
-    } else if (isAndroid) {
-      schemeUrl = 'intent://' + stripped + '#Intent;scheme=https;end';
-    }
-    if (schemeUrl) {
-      e.preventDefault();
-      window.location.href = schemeUrl;
-    }
-  });
-})();
-</script>
 </body>
 </html>
