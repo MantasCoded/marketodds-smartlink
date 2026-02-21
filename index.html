@@ -3,43 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarketOdds SmartLink - Test</title>
+<title>MarketOdds | Live Opportunities</title>
+<meta name="description" content="See live stock opportunities and seasonal odds. Start free.">
+<meta name="robots" content="noindex, follow">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f0f0f5;color:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:1.5rem}
-.card{max-width:400px;width:100%;background:#fff;border-radius:20px;padding:2.5rem 2rem;box-shadow:0 8px 24px rgba(0,0,0,.05),0 2px 4px rgba(0,0,0,.08)}
-h1{font-size:1.6rem;font-weight:700;margin-bottom:.75rem;color:#111}
-.badge{display:inline-block;padding:4px 12px;background:#4CAF50;color:#fff;border-radius:20px;font-size:.8rem;font-weight:600;margin-bottom:1rem}
-p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:1rem}
-.browser-info{background:#f5f5f5;border-radius:10px;padding:1rem;font-size:.8rem;color:#666;text-align:left;word-break:break-all}
-.browser-info strong{color:#111}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#000;color:#fff;min-height:100vh}
+
+/* Header */
+.smartlink-stripe{width:100%;background:#000;border-bottom:1px solid rgba(255,255,255,0.1)}
+.smartlink-stripe .container{display:flex;justify-content:center;align-items:center;padding:1.25rem 1.5rem}
+.smartlink-logo{display:flex;align-items:center;text-decoration:none}
+.smartlink-logo img{height:52px;width:auto}
+
+/* Hero */
+.smartlink-hero{position:relative;background:#fff;padding:2rem 1.5rem 1rem;text-align:center;overflow:hidden}
+.smartlink-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120%;max-width:32rem;height:140%;max-height:20rem;background:linear-gradient(to bottom right,rgba(0,208,148,0.2),rgba(24,24,27,0.08),rgba(139,92,246,0.2));border-radius:16px;filter:blur(40px);opacity:0.5;pointer-events:none}
+.smartlink-hero-badge-line{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin:0 0 1rem;position:relative;z-index:1}
+.smartlink-hero-badge{display:inline-flex;align-items:center;padding:0.25rem 0.625rem;font-size:0.9375rem;font-weight:700;color:#5F4B8B;background:rgba(95,75,139,0.12);border:1px solid rgba(95,75,139,0.2);border-radius:9999px}
+.smartlink-hero-badge-text{font-size:0.75rem;font-weight:400;color:#1A1A1A;letter-spacing:0.02em;text-transform:uppercase}
+.smartlink-hero-title{font-size:clamp(2.25rem,8vw,3.5rem);font-weight:700;line-height:1.15;margin:0;display:flex;flex-direction:column;align-items:center;letter-spacing:-0.02em;position:relative;z-index:1}
+.smartlink-hero-title-dark{color:#1A1A1A}
+.smartlink-hero-title-accent{color:#7B68EE}
+
+/* Live Opportunities - Dark variant */
+.live-opportunities{padding:0.75rem 0 0;background:transparent}
+.live-opportunities-container{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 1.75rem;background:#1C1C1E;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.live-opportunities-header{text-align:center;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.live-opportunities-badge{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;padding:0;margin-bottom:0.25rem;font-size:1.25rem;font-weight:700;color:#fff}
+.live-indicator{display:flex;align-items:center;color:#4CAF50;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.live-opportunities-subtitle{color:#AAA;font-size:0.875rem;margin:0}
+
+/* Table */
+.live-opportunities-table-wrapper{background:transparent;overflow:hidden}
+.live-opportunities-table{width:100%;border-collapse:collapse}
+.live-opportunities-table thead{background:transparent}
+.live-opportunities-table th{padding:0.75rem 1rem;font-size:0.6875rem;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:#AAA;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
+.live-opportunities-table th.col-odds,.live-opportunities-table th.col-potential,.live-opportunities-table th.col-window{text-align:right}
+.live-opportunities-table th.col-score{text-align:center}
+.live-opportunities-table td{padding:0.875rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);background:#242426}
+.live-opportunities-table td.col-odds,.live-opportunities-table td.col-potential,.live-opportunities-table td.col-window{text-align:right}
+.live-opportunities-table td.col-score{text-align:center}
+.opportunity-row:last-child td{border-bottom:none}
+.stock-info{display:flex;flex-direction:column;gap:0.125rem}
+.stock-ticker{font-size:1rem;font-weight:700;color:#fff}
+.stock-name{font-size:0.75rem;color:#AAA}
+.odds-value{font-size:1rem;font-weight:700;color:#6F7CFE}
+.score-badge{display:inline-flex;align-items:center;justify-content:center;padding:0.25rem 0.625rem;font-size:0.75rem;font-weight:700;border-radius:4px;min-width:2rem;background:#4CAF50;color:#fff}
+.potential-value{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.875rem;font-weight:600;color:#4CAF50}
+.window-value{font-size:0.875rem;color:#AAA}
+
+/* CTA */
+.live-opportunities-cta{display:flex;justify-content:center;margin-top:1.25rem}
+.cta-button{display:inline-flex;align-items:center;gap:0.5rem;width:100%;justify-content:center;padding:1rem 1.5rem;font-size:1rem;font-weight:700;background:#7B68EE;color:#fff;text-decoration:none;border-radius:10px;transition:all 0.2s;border:none;cursor:pointer;font-family:inherit}
+.cta-button:hover{background:#6A58DD;transform:translateY(-1px)}
+
+.live-opportunities-disclaimer{text-align:center;color:#AAA;font-size:0.6875rem;margin:1rem 0 0}
+
+/* Responsive */
+@media(max-width:768px){
+  .live-opportunities-table th,.live-opportunities-table td{padding:0.75rem 0.5rem}
+  .live-opportunities-table th{font-size:0.625rem}
+  .stock-ticker{font-size:0.875rem}
+  .stock-name{display:none}
+  .odds-value{font-size:0.875rem}
+  .score-badge{font-size:0.6875rem;padding:0.1875rem 0.5rem}
+  .potential-value{font-size:0.8125rem}
+  .window-value{font-size:0.8125rem}
+}
+@media(max-width:480px){
+  .col-window,.live-opportunities-table th.col-window,.live-opportunities-table td.col-window{display:none}
+}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="badge" id="badge">Checking…</div>
-  <h1>SmartLink Test Page</h1>
-  <p>If you see this page in <strong>Safari</strong> (not Instagram's browser), the redirect worked!</p>
-  <div class="browser-info">
-    <p><strong>Browser:</strong> <span id="browser"></span></p>
-    <p><strong>In-app:</strong> <span id="inapp"></span></p>
-    <p style="margin:0"><strong>Source:</strong> <span id="source"></span></p>
+
+<header class="smartlink-stripe">
+  <div class="container">
+    <a href="https://marketodds.ai" class="smartlink-logo">
+      <img src="https://marketodds.ai/logo.png" alt="MarketOdds">
+    </a>
   </div>
-</div>
+</header>
+
+<section class="smartlink-hero">
+  <div class="smartlink-hero-glow"></div>
+  <p class="smartlink-hero-badge-line">
+    <span class="smartlink-hero-badge">#1</span>
+    <span class="smartlink-hero-badge-text">STOCK ODDS PLATFORM</span>
+  </p>
+  <h1 class="smartlink-hero-title">
+    <span class="smartlink-hero-title-dark">Performance</span>
+    <span class="smartlink-hero-title-dark">Odds</span>
+    <span class="smartlink-hero-title-accent">for 5,000+</span>
+    <span class="smartlink-hero-title-accent">Stocks.</span>
+  </h1>
+</section>
+
+<section class="live-opportunities">
+  <div class="live-opportunities-container">
+    <div class="live-opportunities-header">
+      <div class="live-opportunities-badge">
+        <span class="live-indicator"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg></span>
+        Live Opportunities
+      </div>
+      <p class="live-opportunities-subtitle">Odds for upcoming days</p>
+    </div>
+
+    <div class="live-opportunities-table-wrapper">
+      <table class="live-opportunities-table">
+        <thead>
+          <tr>
+            <th class="col-stock">STOCK</th>
+            <th class="col-odds">ODDS</th>
+            <th class="col-score">SCORE</th>
+            <th class="col-potential">POTENTIAL</th>
+            <th class="col-window">HOLDING WINDOW</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="opportunity-row">
+            <td class="col-stock"><div class="stock-info"><span class="stock-ticker">MSFT</span><span class="stock-name">Microsoft</span></div></td>
+            <td class="col-odds"><span class="odds-value">92%</span></td>
+            <td class="col-score"><span class="score-badge">A+</span></td>
+            <td class="col-potential"><span class="potential-value"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+5.2%</span></td>
+            <td class="col-window"><span class="window-value">7d</span></td>
+          </tr>
+          <tr class="opportunity-row">
+            <td class="col-stock"><div class="stock-info"><span class="stock-ticker">NVDA</span><span class="stock-name">NVIDIA</span></div></td>
+            <td class="col-odds"><span class="odds-value">88%</span></td>
+            <td class="col-score"><span class="score-badge">A</span></td>
+            <td class="col-potential"><span class="potential-value"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+7.4%</span></td>
+            <td class="col-window"><span class="window-value">10d</span></td>
+          </tr>
+          <tr class="opportunity-row">
+            <td class="col-stock"><div class="stock-info"><span class="stock-ticker">HON</span><span class="stock-name">Honeywell</span></div></td>
+            <td class="col-odds"><span class="odds-value">81%</span></td>
+            <td class="col-score"><span class="score-badge">A</span></td>
+            <td class="col-potential"><span class="potential-value"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+3.8%</span></td>
+            <td class="col-window"><span class="window-value">7d</span></td>
+          </tr>
+          <tr class="opportunity-row">
+            <td class="col-stock"><div class="stock-info"><span class="stock-ticker">VZ</span><span class="stock-name">Verizon</span></div></td>
+            <td class="col-odds"><span class="odds-value">81%</span></td>
+            <td class="col-score"><span class="score-badge">A</span></td>
+            <td class="col-potential"><span class="potential-value"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+3.4%</span></td>
+            <td class="col-window"><span class="window-value">7d</span></td>
+          </tr>
+          <tr class="opportunity-row">
+            <td class="col-stock"><div class="stock-info"><span class="stock-ticker">JNJ</span><span class="stock-name">Johnson&amp;J</span></div></td>
+            <td class="col-odds"><span class="odds-value">85%</span></td>
+            <td class="col-score"><span class="score-badge">A</span></td>
+            <td class="col-potential"><span class="potential-value"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+4.1%</span></td>
+            <td class="col-window"><span class="window-value">7d</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="live-opportunities-cta">
+      <a id="cta-btn" href="https://marketodds.ai/opportunities" class="cta-button">
+        View All Opportunities
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    <p class="live-opportunities-disclaimer">Not investment advice. Past performance ≠ future results.</p>
+  </div>
+</section>
+
 <script>
-var ua = navigator.userAgent;
-var isInApp = /Instagram|FBAN|FBAV|Messenger|Snapchat|TikTok/i.test(ua);
-document.getElementById('browser').textContent = ua.substring(0, 120) + '…';
-document.getElementById('inapp').textContent = isInApp ? 'YES — still in-app browser' : 'NO — native browser!';
-document.getElementById('source').textContent = new URLSearchParams(window.location.search).get('browser') || 'direct';
-var badge = document.getElementById('badge');
-if (isInApp) {
-  badge.textContent = 'In-App Browser';
-  badge.style.background = '#ef4444';
-} else {
-  badge.textContent = 'Native Browser ✓';
-  badge.style.background = '#4CAF50';
-}
+(function(){
+  var ua = navigator.userAgent || '';
+  var isInApp = /Instagram|FBAN|FBAV|Messenger|Line\/|Snapchat|TikTok|Pinterest|WeChat|LinkedInApp|WebView| wv\)/i.test(ua);
+  if (!isInApp) return;
+
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  var isAndroid = /Android/i.test(ua);
+  var target = 'https://marketodds.ai/opportunities';
+  var stripped = target.replace(/^https?:\/\//, '');
+
+  var btn = document.getElementById('cta-btn');
+  if (!btn) return;
+
+  btn.addEventListener('click', function(e) {
+    var schemeUrl;
+    if (isIOS) {
+      schemeUrl = 'x-safari-https://' + stripped;
+    } else if (isAndroid) {
+      schemeUrl = 'intent://' + stripped + '#Intent;scheme=https;end';
+    }
+    if (schemeUrl) {
+      e.preventDefault();
+      window.location.href = schemeUrl;
+    }
+  });
+})();
 </script>
 </body>
 </html>
