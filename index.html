@@ -8,49 +8,50 @@
 <meta name="robots" content="noindex, follow">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#000;color:#fff;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column}
 
 .smartlink-stripe{width:100%;background:#000;border-bottom:1px solid rgba(255,255,255,0.1)}
-.smartlink-stripe .container{display:flex;justify-content:center;align-items:center;padding:0.85rem 1rem}
+.smartlink-stripe .container{display:flex;justify-content:center;align-items:center;padding:1rem 1.25rem}
 .smartlink-logo{display:flex;align-items:center;text-decoration:none}
-.smartlink-logo img{height:42px;width:auto}
+.smartlink-logo img{height:46px;width:auto}
 
-.smartlink-hero{position:relative;background:#fff;padding:1.1rem 1.25rem 0.85rem;text-align:center;overflow:hidden}
+.smartlink-hero{position:relative;background:#fff;padding:1.5rem 1.25rem 1.25rem;text-align:center;overflow:hidden}
 .smartlink-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120%;max-width:32rem;height:140%;max-height:20rem;background:linear-gradient(to bottom right,rgba(0,208,148,0.2),rgba(24,24,27,0.08),rgba(139,92,246,0.2));border-radius:16px;filter:blur(40px);opacity:0.5;pointer-events:none}
-.smartlink-hero-badge-line{display:flex;align-items:center;justify-content:center;gap:0.4rem;margin:0 0 0.5rem;position:relative;z-index:1}
-.smartlink-hero-badge{display:inline-flex;align-items:center;padding:0.15rem 0.5rem;font-size:0.8rem;font-weight:700;color:#5F4B8B;background:rgba(95,75,139,0.12);border:1px solid rgba(95,75,139,0.2);border-radius:9999px}
-.smartlink-hero-badge-text{font-size:0.65rem;font-weight:400;color:#1A1A1A;letter-spacing:0.02em;text-transform:uppercase}
-.smartlink-hero-title{font-size:1.65rem;font-weight:700;line-height:1.2;margin:0;display:flex;flex-direction:column;align-items:center;letter-spacing:-0.02em;position:relative;z-index:1}
+.smartlink-hero-badge-line{display:flex;align-items:center;justify-content:center;gap:0.45rem;margin:0 0 0.65rem;position:relative;z-index:1}
+.smartlink-hero-badge{display:inline-flex;align-items:center;padding:0.2rem 0.55rem;font-size:0.85rem;font-weight:700;color:#5F4B8B;background:rgba(95,75,139,0.12);border:1px solid rgba(95,75,139,0.2);border-radius:9999px}
+.smartlink-hero-badge-text{font-size:0.7rem;font-weight:400;color:#1A1A1A;letter-spacing:0.02em;text-transform:uppercase}
+.smartlink-hero-title{font-size:1.85rem;font-weight:700;line-height:1.2;margin:0;display:flex;flex-direction:column;align-items:center;letter-spacing:-0.02em;position:relative;z-index:1}
 .smartlink-hero-title-dark{color:#1A1A1A}
 .smartlink-hero-title-accent{color:#7B68EE}
 
-.live-opportunities{padding:0.6rem 0 0;background:transparent}
-.live-opportunities-container{max-width:900px;margin:0 auto;padding:1rem 1rem 1.1rem;background:#1C1C1E;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
-.live-opportunities-header{text-align:center;margin-bottom:0.75rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.08)}
-.live-opportunities-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:1.1rem;font-weight:700;color:#fff}
+.live-opportunities{flex:1;display:flex;flex-direction:column;padding:0.85rem 0.85rem 0;background:transparent}
+.live-opportunities-container{flex:1;display:flex;flex-direction:column;max-width:900px;width:100%;margin:0 auto;padding:1.25rem 1.1rem 1.25rem;background:#1C1C1E;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.live-opportunities-header{text-align:center;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.live-opportunities-badge{display:inline-flex;align-items:center;gap:0.45rem;font-size:1.15rem;font-weight:700;color:#fff}
 .live-indicator{display:flex;align-items:center;color:#4CAF50;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.live-opportunities-subtitle{color:#AAA;font-size:0.8rem;margin:0.1rem 0 0}
+.live-opportunities-subtitle{color:#AAA;font-size:0.8rem;margin:0.15rem 0 0}
 
 .live-opportunities-table{width:100%;border-collapse:collapse}
-.live-opportunities-table th{padding:0.5rem;font-size:0.6rem;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;color:#AAA;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
+.live-opportunities-table th{padding:0.6rem 0.5rem;font-size:0.625rem;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:#AAA;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
 .live-opportunities-table th.col-odds,.live-opportunities-table th.col-potential{text-align:right}
 .live-opportunities-table th.col-score{text-align:center}
-.live-opportunities-table td{padding:0.6rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);background:#242426}
+.live-opportunities-table td{padding:0.75rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);background:#242426}
 .live-opportunities-table td.col-odds,.live-opportunities-table td.col-potential{text-align:right}
 .live-opportunities-table td.col-score{text-align:center}
 .opportunity-row:last-child td{border-bottom:none}
-.stock-ticker{font-size:0.9rem;font-weight:700;color:#fff}
-.stock-name{font-size:0.65rem;color:#AAA;margin-left:0.35rem}
-.odds-value{font-size:0.9rem;font-weight:700;color:#6F7CFE}
-.score-badge{display:inline-flex;align-items:center;justify-content:center;padding:0.15rem 0.5rem;font-size:0.65rem;font-weight:700;border-radius:4px;background:#4CAF50;color:#fff}
-.potential-value{display:inline-flex;align-items:center;gap:0.2rem;font-size:0.8rem;font-weight:600;color:#4CAF50}
+.stock-ticker{font-size:0.95rem;font-weight:700;color:#fff}
+.stock-name{font-size:0.7rem;color:#AAA;margin-left:0.4rem}
+.odds-value{font-size:0.95rem;font-weight:700;color:#6F7CFE}
+.score-badge{display:inline-flex;align-items:center;justify-content:center;padding:0.2rem 0.55rem;font-size:0.7rem;font-weight:700;border-radius:4px;background:#4CAF50;color:#fff}
+.potential-value{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.85rem;font-weight:600;color:#4CAF50}
 
-.live-opportunities-cta{display:flex;justify-content:center;margin-top:1rem}
-.cta-button{display:inline-flex;align-items:center;gap:0.5rem;width:100%;justify-content:center;padding:0.9rem 1.25rem;font-size:1rem;font-weight:700;background:#7B68EE;color:#fff;text-decoration:none;border-radius:10px;transition:all 0.2s;border:none;cursor:pointer;font-family:inherit}
+.live-opportunities-footer{margin-top:auto;padding-top:1rem}
+.live-opportunities-cta{display:flex;justify-content:center}
+.cta-button{display:inline-flex;align-items:center;gap:0.5rem;width:100%;justify-content:center;padding:1rem 1.25rem;font-size:1rem;font-weight:700;background:#7B68EE;color:#fff;text-decoration:none;border-radius:12px;transition:all 0.2s;border:none;cursor:pointer;font-family:inherit}
 .cta-button:hover{background:#6A58DD;transform:translateY(-1px)}
 
-.live-opportunities-disclaimer{text-align:center;color:#666;font-size:0.6rem;margin:0.6rem 0 0}
+.live-opportunities-disclaimer{text-align:center;color:#666;font-size:0.65rem;margin:0.75rem 0 0}
 
 @media(max-width:480px){
   .col-window{display:none}
@@ -132,13 +133,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Ar
       </tbody>
     </table>
 
-    <div class="live-opportunities-cta">
-      <a href="https://marketodds.ai/opportunities" class="cta-button">
-        View All Opportunities
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+    <div class="live-opportunities-footer">
+      <div class="live-opportunities-cta">
+        <a href="https://marketodds.ai/opportunities" class="cta-button">
+          View All Opportunities
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <p class="live-opportunities-disclaimer">Not investment advice. Past performance ≠ future results.</p>
     </div>
-    <p class="live-opportunities-disclaimer">Not investment advice. Past performance ≠ future results.</p>
   </div>
 </section>
 
